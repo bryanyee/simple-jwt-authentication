@@ -22,7 +22,8 @@ GET /profile
     Authorization: Bearer <token>
 ```
 
-**Other APIs**
+**Other APIs:**
+
 To create a new user:
 ```
 POST /users/create
