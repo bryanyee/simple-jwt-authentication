@@ -2,6 +2,7 @@
 
 ### Run server
 ```
+nvm use
 npm install
 npm start
 ```
