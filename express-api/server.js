@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const { authenticateUsernameAndPassword, authenticateToken, generateAccessToken } = require('./authentication.js');
 
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // content-type: application/x-www-form-urlencoded 
@@ -14,7 +15,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/authenticate', (req, res) => {
-  dotenv.config();
   const { username, password } = req.body;
   const authenticated = authenticateUsernameAndPassword(username, password);
   if (authenticated) {
@@ -27,8 +27,8 @@ app.post('/authenticate', (req, res) => {
 
 app.get('/api/admin', authenticateToken, (req, res) => {
   const data = {
-    username: req.payload.username,
-    role: req.payload.role,
+    username: req.userProfile.username,
+    role: req.userProfile.role,
   };
   res.status(200).json(data);
 });

@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
 
 function authenticateUsernameAndPassword(username, password) {
   if (username === process.env.USERNAME && password === process.env.PASSWORD) {
@@ -14,7 +13,6 @@ function generateAccessToken(username) {
 
 
 function authenticateToken(req, res, next) {
-  dotenv.config();
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -31,7 +29,7 @@ function authenticateToken(req, res, next) {
         return res.sendStatus(403);
       }
     }
-    req.payload = payload;
+    req.userProfile = payload;
     next();
   });
 }
