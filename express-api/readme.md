@@ -22,6 +22,6 @@ GET /api/admin
     Authorization: Bearer <token>
 ```
 
-### Resourcs
+### Resources
 - https://auth0.com/learn/token-based-authentication-made-easy/
 - https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs

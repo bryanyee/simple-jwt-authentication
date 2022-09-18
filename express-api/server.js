@@ -6,6 +6,7 @@ const { authenticateUsernameAndPassword, authenticateToken, generateAccessToken 
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // content-type: application/x-www-form-urlencoded 
 
 app.get('/', (req, res) => {
