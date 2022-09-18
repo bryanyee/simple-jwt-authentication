@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 
+const { User } = require('./models.js');
+
 function authenticateUsernameAndPassword(username, password) {
-  if (username === process.env.USERNAME && password === process.env.PASSWORD) {
-    return true;
-  }
-  return false;
+  const user = User.find({ username, password });
+  return Boolean(user);
 }
 
 function generateAccessToken(username) {
-  return jwt.sign({ username, role: 'admin' }, process.env.TOKEN_SECRET, { expiresIn: 120 }); // 120 seconds
+  return jwt.sign({ username, role: 'user' }, process.env.TOKEN_SECRET, { expiresIn: 120 }); // 120 seconds
 }
 
 
@@ -29,7 +29,8 @@ function authenticateToken(req, res, next) {
         return res.sendStatus(403);
       }
     }
-    req.userProfile = payload;
+    const user = User.find({ username: payload.username });
+    req.currentUser = user;
     next();
   });
 }

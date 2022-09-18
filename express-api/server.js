@@ -2,10 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 
+const { loadDatastore } = require('./datastore.js');
+const { User } = require('./models.js');
 const { authenticateUsernameAndPassword, authenticateToken, generateAccessToken } = require('./authentication.js');
 
 const app = express();
 dotenv.config();
+loadDatastore();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // content-type: application/x-www-form-urlencoded 
@@ -25,11 +28,28 @@ app.post('/authenticate', (req, res) => {
   }
 });
 
-app.get('/api/admin', authenticateToken, (req, res) => {
+app.get('/profile', authenticateToken, (req, res) => {
+  const data = req.currentUser.toObject();
+  res.status(200).json(data);
+});
+
+app.post('/users/create', (req, res) => {
+  const { username, password, birthdate } = req.body;
+  let user;
+  try {
+    user = User.create({ username, password, birthdate });
+  } catch (e) {
+    if (e.message === 'usernameAlreadyExists') {
+      res.status(409).send('User already exists for username.');
+    } else {
+      res.status(400).send(e.message);
+    }
+    return;
+  }
   const data = {
-    username: req.userProfile.username,
-    role: req.userProfile.role,
-  };
+    ...user.toObject(),
+    token: generateAccessToken(username),
+  }
   res.status(200).json(data);
 });
 

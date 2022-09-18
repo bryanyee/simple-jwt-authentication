@@ -17,9 +17,19 @@ POST /authenticate
 
 To make an authenticated api call with an access token:
 ```
-GET /api/admin
+GET /profile
   Headers:
     Authorization: Bearer <token>
+```
+
+**Other APIs**
+To create a new user:
+```
+POST /users/create
+  Body:
+    username=<username>
+    password=<password>
+    birthdate=<birthdate>
 ```
 
 ### Resources
