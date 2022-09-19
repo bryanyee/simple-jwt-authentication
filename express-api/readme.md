@@ -1,9 +1,20 @@
 # JWT Authentication with Express
 
-### Run server
+### Setup
+Setup dependencies:
 ```
 nvm use
 npm install
+```
+
+Store local environment variables (replace "hello_word_secret" with a random string):
+```
+touch .env
+echo "TOKEN_SECRET=hello_word_secret" >> .env
+```
+
+### Run server
+```
 npm start
 ```
 
@@ -16,7 +27,7 @@ POST /authenticate
     password=<password>
 ```
 
-To make an authenticated api call with an access token:
+To make an api call with an access token to a priveleged endpoint:
 ```
 GET /profile
   Headers:
@@ -25,7 +36,7 @@ GET /profile
 
 **Other APIs:**
 
-To create a new user:
+To create a new user, providing a username and password:
 ```
 POST /users/create
   Body:
