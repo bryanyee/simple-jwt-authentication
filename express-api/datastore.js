@@ -1,13 +1,14 @@
 const fs = require('fs');
 
-const dataPath = './data.json';
+const DATA_PATH = './data.json';
+
 let data;
 
 class DataStore {
   static createUser(attributes) {
     data.users.push({ ...attributes });
     const json = JSON.stringify(data, null, 2);
-    fs.writeFileSync(dataPath, json);
+    fs.writeFileSync(DATA_PATH, json);
   }
 
   static findUser(attributes) {
@@ -25,7 +26,7 @@ class DataStore {
 }
 
 function loadDatastore() {
-  const contents = fs.readFileSync(dataPath, { encoding: 'utf8' });
+  const contents = fs.readFileSync(DATA_PATH, { encoding: 'utf8' });
   data = JSON.parse(contents);
 }
 
