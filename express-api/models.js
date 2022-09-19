@@ -1,6 +1,9 @@
 const { DataStore } = require('./datastore.js');
 
 class User {
+  // @param username <String>
+  // @param password <String>, format: bcrypt hash, e.g. '$2b$10$fiB/50MWg9dYWmAttYDud.gWcdrMDXDNdTvZbGMxgeNraItW/u/Vi'
+  // @param birthdate <String>, format: "YYYY-MM-DD"
   constructor({ username, password, birthdate }) {
     this.username = username;
     this.password = password;
@@ -31,7 +34,6 @@ class User {
   toObject() {
     return {
       username: this.username,
-      password: this.password,
       birthdate: this.birthdate,
     };
   }

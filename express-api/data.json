@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "username": "joe10@example.com",
-      "password": "password1",
+      "username": "joe@example.com",
+      "password": "$2b$10$09MR0TrvheLr1ClAGtDuG.yK5QHCRfKjcy8K8cVk16it5UgmbM2qO",
       "birthdate": "2000-01-01"
     }
   ]
