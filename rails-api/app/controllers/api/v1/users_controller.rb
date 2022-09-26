@@ -18,7 +18,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def profile
-    render json: {}, status: :ok
+    data = { user: UserSerializer.new(current_user) }
+    render json: data, status: :ok
   end
 
   private def user_params
